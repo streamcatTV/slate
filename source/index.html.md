@@ -3,9 +3,6 @@ title: API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -19,27 +16,12 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Welcome to the Streamcat.TV API.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
 
 ```shell
 # With shell, you can just pass the correct header with each request
@@ -47,17 +29,11 @@ curl "api_endpoint_here"
   -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Streamcat uses API keys to allow access to the API. You can register a new Streamcat API key at our [developer portal](http://streamcat.tv/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Streamcat expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: meowmeowmeow`
 
@@ -65,34 +41,13 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+# Streams
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get All Streams
 
 ```shell
-curl "http://example.com/api/kittens"
+curl "https://api.streamcat.tv/v1/streams"
   -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
 ```
 
 > The above command returns JSON structured like this:
@@ -101,26 +56,24 @@ let kittens = api.kittens.get();
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "title": "testing",
+    "type": "gaming",
+    "description": "test desc",
+    "private": false,
+    "stream_name": "alf123",
+    "stream_url": "http://streamcat.tv/alf123",
+    "stream_rtmp_url": "rtmp://live.streamcat.tv:8080/stream",
+    "video_url": "http://live.streamcat.tv:8080/live/alf123.m3u8",
+    "thumbnail": "http://live.streamcat.tv:8080/live/alf123.png"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all streams.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.streamcat.tv/v1/streams`
 
 ### Query Parameters
 
@@ -133,57 +86,40 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get a Specific Stream
 
 ```shell
-curl "http://example.com/api/kittens/2"
+curl "https://api.streamcat.tv/v1/alf123"
   -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+  {
+    "id": 1,
+    "title": "testing",
+    "type": "gaming",
+    "description": "test desc",
+    "private": false,
+    "stream_name": "alf123",
+    "stream_url": "http://streamcat.tv/alf123",
+    "stream_rtmp_url": "rtmp://live.streamcat.tv:8080/stream",
+    "video_url": "http://live.streamcat.tv:8080/live/alf123.m3u8",
+    "thumbnail": "http://live.streamcat.tv:8080/live/alf123.png"
+  }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific stream.
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.streamcat.tv/v1/<stream_name>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
-
+stream_name | The stream name of the stream.
