@@ -123,6 +123,30 @@
 
 <h1 id="authentication">Authentication</h1>
 
+<h2 id="registration">Registration</h2>
+
+<p>Streamcat uses API keys to allow access to the API. You can register a new Streamcat API key at our <a href="http://streamcat.tv/developers">developer portal</a>.</p>
+
+<p>Once you have an API Key and Secret, you&rsquo;ll need to create an authentication token.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"api_endpoint_here"</span>
+  -H <span class="s2">"Authorization: Basic meowmeowmeow"</span>
+</code></pre>
+<p><code class="prettyprint">GET https://api.streamcat.tv/authorize</code></p>
+
+<p><code class="prettyprint">Authorization: Basic meowmeowmeow</code></p>
+
+<p>You must replace <code>meowmeowmeow</code> with your API Key and Secret in a base64 encoded string in the following format:</p>
+
+<p><code class="prettyprint">Authorization: Basic &lt;base64 encoded api_key:api_secret&gt;</code>.</p>
+
+<aside class="notice">
+JWT tokens expire in 72 hours, please cache and store the token accordingly.
+</aside>
+
+<h3 id="making-authenticated-requests">Making Authenticated Requests</h3>
+
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
@@ -134,21 +158,19 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
 </blockquote>
 
-<p>Streamcat uses API keys to allow access to the API. You can register a new Streamcat API key at our <a href="http://streamcat.tv/developers">developer portal</a>.</p>
+<p>Streamcat expects the auth token to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p>Streamcat expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">Authorization: Bearer &lt;token&gt;</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>token</code> with the auth token.
 </aside>
 
 <h1 id="streams">Streams</h1>
 
 <h2 id="get-all-streams">Get All Streams</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"https://api.streamcat.tv/v1/streams"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: Bearer &lt;token&gt;"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
