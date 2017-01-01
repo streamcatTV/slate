@@ -20,6 +20,33 @@ Welcome to the Streamcat.TV API.
 
 # Authentication
 
+
+## Registration
+
+Streamcat uses API keys to allow access to the API. You can register a new Streamcat API key at our [developer portal](http://streamcat.tv/developers).
+
+Once you have an API Key and Secret, you'll need to create an authentication token.
+
+### HTTP Request
+
+```shell
+curl "api_endpoint_here"
+  -H "Authorization: Basic meowmeowmeow"
+```
+
+`GET https://api.streamcat.tv/authorize`
+
+`Authorization: Basic meowmeowmeow`
+
+You must replace <code>meowmeowmeow</code> with your API Key and Secret in a base64 encoded string in the following format:
+
+`Authorization: Basic <base64 encoded api_key:api_secret>`.
+
+<aside class="notice">
+JWT tokens expire in 72 hours, please cache and store the token accordingly.
+</aside>
+
+### Making Authenticated Requests
 > To authorize, use this code:
 
 
@@ -31,14 +58,12 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Streamcat uses API keys to allow access to the API. You can register a new Streamcat API key at our [developer portal](http://streamcat.tv/developers).
+Streamcat expects the auth token to be included in all API requests to the server in a header that looks like the following:
 
-Streamcat expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Authorization: Bearer <token>`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>token</code> with the auth token.
 </aside>
 
 # Streams
@@ -47,7 +72,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 ```shell
 curl "https://api.streamcat.tv/v1/streams"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Bearer <token>"
 ```
 
 > The above command returns JSON structured like this:
